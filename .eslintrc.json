@@ -1,0 +1,32 @@
+{
+    "env": {
+        "node": true,
+        "es6": true,
+        "jest": true
+    },
+    "extends": [
+        "standard"
+    ],
+    "globals": {
+        "mockUsers": "writable"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "rules": {
+        "array-bracket-spacing": "off",
+        "brace-style": ["warn", "stroustrup"],
+        "eqeqeq": "error",
+		"indent": ["warn", 4],
+		"keyword-spacing": ["warn", { "before": true, "after": true }],
+		"max-len": ["warn", { "code": 130 }],
+		"no-console": "off",
+		"no-multi-spaces": "warn",
+        "no-trailing-spaces": "warn",
+        "no-unused-vars": "warn",
+		"prefer-const": "warn",
+		"quotes": ["warn", "single", { "allowTemplateLiterals": true }],
+		"quote-props": ["warn", "as-needed"],
+		"semi": ["error", "always"]
+    }
+}
