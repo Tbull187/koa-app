@@ -1,17 +1,27 @@
 const uuidv5 = require('uuid/v4');
+const dbClient = require('./db-client');
 require('../globals');
 
-const getUser = (id) => {
-    return mockUsers.filter(user => user.id === id);
+const getUser = async (id) => {
+    const user = await dbClient.getUserById(id);
+    // Handle errors, etc
+    return user;
 };
 
-const createUser = (name) => {
+const getAllUsers = async () => {
+    const users = await dbClient.getAllUsers();
+    return users;
+};
+
+const createUser = async (name, email) => {
     const newUser = {
-        id: uuidv5(),
-        name
+        // id: uuidv5(),
+        name,
+        email
     };
-    mockUsers = [...mockUsers, newUser];
-    return newUser;
+    // mockUsers = [...mockUsers, newUser];
+    const newUserId = await dbClient.createUser(newUser);
+    return newUserId;
 };
 
 const updateUser = (id, updateConfig) => {
@@ -40,5 +50,6 @@ module.exports = {
     getUser,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getAllUsers
 };

@@ -15,9 +15,11 @@
     "koa-bodyparser": "^4.2.1",
     "koa-logger": "^3.2.1",
     "koa-router": "^7.4.0",
+    "pg": "^7.18.1",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "dotenv": "^8.2.0",
     "eslint": "^6.7.1",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",

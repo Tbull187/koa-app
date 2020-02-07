@@ -2,7 +2,7 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
-const userService = require('./services/user-service')
+const userService = require('./services/user-service');
 const _ = require('lodash');
 
 require('./globals');
@@ -19,27 +19,42 @@ router.get('/', (ctx, next) => {
 });
 
 // returns all users
-router.get('/users', (ctx, next) => {
-    ctx.body = mockUsers;
+router.get('/users', async (ctx, next) => {
+    const users = await userService.getAllUsers();
+    
+    console.log('users:', users);
+    
+    ctx.body = users;
     ctx.status = 200;
 });
 
 // returns an array of users
-router.get('/users/:id', (ctx, next) => {
-    ctx.body = userService.getUser(ctx.params.id);
+router.get('/users/:id', async (ctx, next) => {
+    ctx.body = await userService.getUser(ctx.params.id);
 });
 
 // creates a new user and returns that user
 // expects body with name
-router.post('/users', (ctx, next) => {
+router.post('/users', async (ctx, next) => {
     const name = ctx.request.body.name;
+    const email = ctx.request.body.email;
 
     if (_.isEmpty(name)) {
         ctx.body = 'name is a required property';
         ctx.status = 400;
     }
+    if (_.isEmpty(email)) {
+        ctx.body = 'email is a required property';
+        ctx.status = 400;
+    }
     else {
-        ctx.body = userService.createUser(name);
+        // ctx.body = await userService.createUser(name, email);
+        const userId = await userService.createUser(name, email);
+
+        ctx.body = {
+            status: 200,
+            message: `created user with id ${userId}`
+        };
         ctx.status = 200;
     }
 });
