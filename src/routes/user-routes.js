@@ -28,7 +28,8 @@ router.post('/users', async (ctx, next) => {
         const userId = await userService.createUser(name, email);
         ctx.body = {
             status: 200,
-            message: `created user with id ${userId}`
+            message: `created user with id ${userId}`,
+            id: userId
         };
         ctx.status = 200;
     }
