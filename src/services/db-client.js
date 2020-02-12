@@ -14,7 +14,7 @@ const pool = new Pool({
 
 const getAllUsers = async () => {
     const results = await pool.query('SELECT * FROM users;');
-    console.log('db-client: got all users', results.rows);
+    // console.log('db-client: got all users', results.rows);
     return results.rows;
 };
 
