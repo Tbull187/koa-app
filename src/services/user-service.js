@@ -15,35 +15,24 @@ const getAllUsers = async () => {
 
 const createUser = async (name, email) => {
     const newUser = {
-        // id: uuidv5(),
+        // id: uuidv5(), // database handles the identifier for now
         name,
         email
     };
-    // mockUsers = [...mockUsers, newUser];
     const newUserId = await dbClient.createUser(newUser);
     return newUserId;
 };
 
-const updateUser = (id, updateConfig) => {
-    // find the user
-    let userToUpdate = mockUsers.find(user => user.id === id);
-    // update the user object
-    userToUpdate = {
-        id: userToUpdate.id,
-        name: updateConfig.name,
-        metadata: updateConfig.metadata
-    };
-    // create the new collection
-    mockUsers = mockUsers.filter(user => user.id !== userToUpdate);
-    mockUsers = [...mockUsers, userToUpdate];
-    // return the updated user
-    return userToUpdate;
+const updateUser = async (id, name, email) => {
+    const returnId = await dbClient.updateUser(id, name, email);
+    return returnId;
 };
 
-const deleteUser = (id) => {
-    const userToDelete = mockUsers.find(user => user.id === id);
-    mockUsers = mockUsers.filter(user => user.id !== userToDelete.id);
-    return userToDelete;
+const deleteUser = async (id) => {
+    // const userToDelete = mockUsers.find(user => user.id === id);
+    // mockUsers = mockUsers.filter(user => user.id !== userToDelete.id);
+    // return userToDelete;
+    await dbClient.deleteUser(id);
 };
 
 module.exports = {

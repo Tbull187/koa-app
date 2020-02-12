@@ -31,6 +31,16 @@ const createUser = async ({ name, email }) => {
     return userId;
 };
 
+const updateUser = async (id, name, email) => {
+    const results = await pool.query('UPDATE users SET name=$1, email=$2 WHERE id=$3 RETURNING id', [name, email, id]);
+    const userId = results.rows[0].id;
+    return userId;
+};
+
+const deleteUser = async (id) => {
+    const results = await pool.query('DELETE FROM users WHERE id=$1 RETURN id', [id]);
+};
+
 const testDb = async () => {
     await pool.query('SELECT NOW()', (err, res) => {
         console.log(err, res);
@@ -42,5 +52,6 @@ module.exports = {
     testDb,
     getUserById,
     createUser,
-    getAllUsers
+    getAllUsers,
+    updateUser
 };
